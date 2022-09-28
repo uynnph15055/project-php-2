@@ -18,10 +18,15 @@
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
 
 </head>
+<style>
+    .navbar{
+        background-color: #0F3460;
+    }
+</style>
 
 <body>
     <div class="header">
-        <nav class="navbar navbar-expand-lg bg-main">
+        <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
                 <div class="container d-flex justify-content-between align-items-center">
                     <div class="d-flex justify-content-start align-items-center">

@@ -40,6 +40,7 @@
    display: grid;
    margin-top: 50px;
    grid-template-columns: repeat(5, 1fr);
+   grid-gap: 10px ;
 }
 
 .product-item {
@@ -71,9 +72,6 @@
    position: relative;
 }
 
-.product-item_img-box img{
-   height: 250px;
-}
 
 .product-item_price-wraper .product-price-main{
    color: #b6030c;

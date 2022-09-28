@@ -1,5 +1,4 @@
 .content {
-    padding-top: 100px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 50px;
@@ -36,7 +35,7 @@
 }
 
 .contact__btn {
-    background-color: #000;
+    background-color: var(--color-primary);
     color: #fff;
     padding: 5px 10px;
     border: none;

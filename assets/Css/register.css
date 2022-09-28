@@ -1,6 +1,6 @@
 .container{
     height: 100vh;
-    background-color: #7895B2;
+    background-color: #100720;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +48,7 @@
 }
 
 .contact__btn {
-    background-color: #87A2FB;
+    background-color: #100720;
     color: #fff;
     padding: 10px;
     border: none;

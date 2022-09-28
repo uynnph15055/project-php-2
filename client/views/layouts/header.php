@@ -25,65 +25,15 @@
     <div class="container">
         <header class="header">
             <div class="header-top">
-                <p>Trang mua hàng nội thất trực tuyến chính hãng!</p>
+                <p>Chuyên quần áo nam chính hãng</p>
             </div>
             <div class="header-main padding-container">
                 <div class="header-main_log">
-                    <span>Urban Home</span>
+                    <span>AVA SPORT <i class="fa-solid fa-shoe-prints"></i></span>
                 </div>
                 <form action="" class="header-search_form-box">
                     <input class="header-search_form-input" type="text" placeholder="Tìm kiếm sản phẩm">
                     <button class="header-search_btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
-                    <!-- <div class="product-result-search">
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                        <div class="product-search-item">
-                            <img  class="product-search-item-img w-100" src="https://product.hstatic.net/1000409762/product/sp1-1_8b56d5f805744ca98b24545ae72d3cb4_master.jpg" alt="">
-                            <div class="product-search-item-name">
-                                Ghế phòng khách Arctander
-                            </div>
-                            <h4 class="product-search-item-price">799,000₫
-                            </h4>
-                        </div>
-                    </div> -->
                 </form>
                 <div class="header-phone header-main_sub">
                     <p><i class="fa-solid icon fa-square-phone"></i></p>
@@ -181,8 +131,6 @@
                     </li>
                     <li class="header-menu-item"><a href="index.php?url=san-pham" class="header-menu-item-link">Sản phẩm
                             <i class="fa-solid fa-caret-down"></i></a></li>
-                    <li class="header-menu-item"><a href="" class="header-menu-item-link">Product View <i
-                                class="fa-solid fa-caret-down"></i></a></li>
                     <li class="header-menu-item"><a href="index.php?url=lien-he" class="header-menu-item-link">Liên
                             hệ</a></li>
                 </ul>

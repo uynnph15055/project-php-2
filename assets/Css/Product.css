@@ -3,11 +3,7 @@
     padding: 30px 80px;
 }
 
-.product-list_box {
-    display: grid;
-    margin-top: 30px;
-    grid-template-columns: repeat(5, 1fr);
-}
+
 
 .product-item {
     /* border-right: 1px solid #e1e3e4;

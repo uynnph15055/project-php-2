@@ -65,6 +65,7 @@ if(isset($_GET['url'])){
             break;
         // Trang sản phẩm
         case 'san-pham':
+            $products =  getProductAll();
             include('./views/product.php');
             break;
         // Trang liên hệ

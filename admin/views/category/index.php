@@ -2,7 +2,7 @@
     <h3 class="mt-3">Quản trị danh mục</h3>
     <div class="row mt-2">
         <div class="col-4 mt-3">
-         
+                  
             <?php if(isset($cate)){?>
                 <form method="POST" action="index.php?url=category-edit-save">
                     <input type="text" hidden name="id" value="<?= $cate[0]["dm_id"]?>">

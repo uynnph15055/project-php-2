@@ -17,12 +17,16 @@ a{
 }
 
 :root {
-    --color-primary: #0975f5;
-    --color-sub: #1fb5d4;
+    --color-primary: rgb(54, 54, 54);
+    --color-sub: #21E1E1;
     --color-black: #000;
     --color-white: #ffff;
     --color-container: #F8F8F8;
     --color-text: rgb(85, 83, 83);
+}
+
+.content{
+  padding: 30px 0px;
 }
 
 .header-cart {
@@ -71,7 +75,7 @@ a{
 
 /* HEADER */
 .header-top {
-    background-color: var(--color-sub);
+    background-color: var(--color-primary);
     height: 40px;
     color: var(--color-white);
     text-align: center;

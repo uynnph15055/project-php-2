@@ -1,40 +1,10 @@
+<style>
+    footer{
+        border-top: 1px solid #ccc;
+        padding-top: 20px
+    }
+</style>
 <footer class="footer">
-    <header class="header-footer">
-        <h3 class="commom-title text-center">
-            HÃY LIÊN HỆ VỚI CHÚNG TÔI!
-        </h3>
-        <p class="text-center color-text">Luôn sẵn sáng hỗ trợ và tư vấn cho bạn để có sản phẩm tốt nhất.</p>
-        <div class="header-footer-form-box text-center">
-            <input placeholder="Tìm kiếm sản phẩm" class="header-footer-form-input" type="text">
-            <button class="header-footer-form-btn">Gửi</button>
-        </div>
-    </header>
-    <div class="footer-intro-box padding-container">
-        <div class="footer-intro-item">
-            <img src="https://theme.hstatic.net/1000409762/1000752712/14/policy_icon_1.png?v=10" alt="">
-            <div class="footer-intro-item-info">
-                <p>Giao hàng nhanh chóng.</p>
-
-                <span>Miễn phí với đơn hàng trên 3 triệu.</span>
-            </div>
-        </div>
-        <div class="footer-intro-item">
-            <img src="https://theme.hstatic.net/1000409762/1000752712/14/policy_icon_1.png?v=10" alt="">
-            <div class="footer-intro-item-info">
-                <p>Giao hàng nhanh chóng.</p>
-
-                <span>Miễn phí với đơn hàng trên 3 triệu.</span>
-            </div>
-        </div>
-        <div class="footer-intro-item">
-            <img src="https://theme.hstatic.net/1000409762/1000752712/14/policy_icon_1.png?v=10" alt="">
-            <div class="footer-intro-item-info">
-                <p>Giao hàng nhanh chóng.</p>
-
-                <span>Miễn phí với đơn hàng trên 3 triệu.</span>
-            </div>
-        </div>
-    </div>
     <div class="header-footer_main padding-container">
         <div class="header-footer_description">
             <h4 class="title-header color-primary">Giới thiệu</h4>
