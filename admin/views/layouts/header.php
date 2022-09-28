@@ -20,7 +20,7 @@
 </head>
 <style>
     .navbar{
-        background-color: #0F3460;
+        background-color: rgb(54, 54, 54);
     }
 </style>
 
