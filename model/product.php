@@ -1,5 +1,6 @@
 <?php 
 
+// Gọi tất cả sản phẩm ra ngoài
 function getProductAll(){
     $conn = connect();
     $stmt = $conn->prepare("SELECT *  FROM product INNER JOIN category  ON product.dm_id = category.dm_id");
@@ -9,15 +10,35 @@ function getProductAll(){
     return $result;
 }
 
+// Lọc theo danh mục
+function getProductWhereCate($cate ){
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT *  FROM product INNER JOIN category  ON product.dm_id = category.dm_id WHERE product.dm_id = ".$cate."");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+// Lọc theo kích thước
+function getProductWhereSize($size){
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT *  FROM product WHERE product.kt_id = ".$size."");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
 
 
+// Xóa sản phẩm
 function deleteProduct($id){
     $conn = connect();
     $sql = "DELETE FROM product WHERE product.sp_id = ".$id;
     $conn->exec($sql);
 }
 
-
+// Gọi phần tử chỉ định theo id
 function getProductFind($id){
     $conn = connect();
     $stmt = $conn->prepare("SELECT  * FROM product WHERE product.sp_id = ".$id."");
@@ -27,7 +48,7 @@ function getProductFind($id){
     return $result;
 }
 
-
+// Thêm sản phẩm
 function insertProduct($data){
     $conn = connect();
     $stmt = $conn->prepare("INSERT INTO product 
@@ -36,7 +57,7 @@ function insertProduct($data){
     $stmt->execute();
 }
 
-
+// Update sản phẩm
 function updateProduct($data , $id){
     $conn = connect();
     $stmt = $conn->prepare("UPDATE  product  

@@ -3,6 +3,8 @@ session_start();
 ob_start();
 include('./../model/connect.php');
 include('./../model/product.php');
+include('./../model/category.php');
+include('./../model/size.php');
 include('./../model/user.php');
 include('./../helper/baseUrl.php');
 include('./../helper/dd.php');
@@ -24,6 +26,9 @@ include('./views/layouts/header.php');
 
 
 if(isset($_GET['url'])){
+    $cates =  getCateAll();
+    $size =  getSizeWhereType(1);
+    $color =  getSizeWhereType(2);
     switch ($_GET['url']) {
         //  Lưu đăng ký
         case 'dang-ky-save':
@@ -65,9 +70,17 @@ if(isset($_GET['url'])){
             break;
         // Trang sản phẩm
         case 'san-pham':
-            $products =  getProductAll();
+            if(isset($_GET['cate'])){
+                $products =  getProductWhereCate($_GET['cate']);
+            }else if(isset($_GET['size'])){
+                $products =  getProductWhereSize($_GET['size']);
+            }else{
+                $products =  getProductAll();
+            }
             include('./views/product.php');
             break;
+
+  
         // Trang liên hệ
          case 'lien-he':
             include('./views/contact.php');

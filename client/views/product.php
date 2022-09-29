@@ -32,57 +32,66 @@
     <div id="myNav" class="overlay">
 
         <!-- Button to close the overlay navigation -->
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="javascript:void(0)" class="closebtn " onclick="closeNavFilter()">&times;</a>
 
         <!-- Overlay content -->
         <div class="overlay-content">
-            <button class="accordion">Loai hinh sản phẩm</button>
+            <button class="accordion">LOẠI HÌNH SẢN PHẨM</button>
             <div class="panel">
                 <ul>
-                    <li><a href=""><i class="fa-solid fa-caret-right"></i> Tất cả sản phẩm</a></li>
+                    <li><a href="index.php?url=san-pham"><i class="fa-solid fa-caret-right"></i> Tất cả sản phẩm</a></li>
                     <li><a href=""><i class="fa-solid fa-caret-right"></i> Sản phẩm khuyến mãi</a></li>
                     <li><a href=""><i class="fa-solid fa-caret-right"></i> Sản phẩm nổi bật</a></li>
                 </ul>
             </div>
 
-            <button class="accordion">Thương hiệu</button>
+            <button class="accordion">LOẠI SẢN PHẨM</button>
             <div class="panel">
                 <ul>
-                    <li><a href=""><i class="fa-solid fa-registered"></i> Tất cả sản phẩm</a></li>
-                    <li><a href=""><i class="fa-solid fa-registered"></i> Sản phẩm khuyến mãi</a></li>
-                    <li><a href=""><i class="fa-solid fa-registered"></i> Sản phẩm nổi bật</a></li>
+                    <?php 
+                     foreach($cates as $key){ ?>
+                         <li><a href="index.php?url=san-pham&cate=<?= $key["dm_id"] ?>"><?=$key["dm_name"]?></a></li>
+                     <?php } ?>
+                    
                 </ul>
             </div>
 
-            <button class="accordion">GIÁ SẢN PHẨM</button>
+            <button class="accordion">SIZE SẢN PHẨM</button>
             <div class="panel">
                 <ul>
-                    <li><a href=""><i class="fa-solid fa-dollar-sign"></i> Dưới 500,000₫</a></li>
-                    <li><a href=""><i class="fa-solid fa-dollar-sign"></i> 500,000₫ - 1,000,000₫</a></li>
-                    <li><a href=""><i class="fa-solid fa-dollar-sign"></i> 1,000,000₫ - 1,500,000₫</a></li>
-                    <li><a href=""><i class="fa-solid fa-dollar-sign"></i> 2,000,000₫ - 5,000,000₫</a></li>
-                    <li><a href=""><i class="fa-solid fa-dollar-sign"></i> Trên 5,000,000₫</a></li>
+                    <?php  
+                    foreach ($size as $key) {
+                     ?>
+                    <li><a href="index.php?url=san-pham&size=<?= $key["kt_id"] ?>"><i class="fa-solid fa-dollar-sign"></i><?=$key["kt_name"] ?></a></li>
+                    <?php  } ?>
                 </ul>
             </div>
             <button class="accordion">MÀU SẮC</button>
+            <style>
+                .color{
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50px;
+                }
+            </style>
             <div class="panel">
                 <ul class="filter-list-color">
-                    <li><a class="color-blue" href=""></a></li>
-                    <li><a class="color-red" href=""></a></li>
-                    <li><a class="color-pink" href=""></a></li>
-                    <li><a class="color-gray" href=""></a></li>
-                    <li><a class="color-orange" href=""></a></li>
+                <?php  
+                    foreach ($color as $key) {
+                     ?>
+                    <a class="color" style="background-color: <?=$key["ma_color"]?>" href=""></a>
+                    <?php  } ?>
                 </ul>
             </div>
         </div>
     </div>
     <div class="product-list_box ">
-    <?php foreach ($products as $item) { ?>
+        <?php foreach ($products as $item) { ?>
         <div class="product-item">
             <div class="product-item_img-box">
-                <img class="w-100"
-                    src="./../upload/<?=$item["sp_image"]?>" alt="">
-                <div class="product-item_percent"><?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
+                <img class="w-100" src="./../upload/<?=$item["sp_image"]?>" alt="">
+                <div class="product-item_percent">
+                    <?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
                 <div class="product-item_icon">
                     <i class="fa-solid fa-magnifying-glass-plus"></i>
                 </div>
@@ -90,10 +99,10 @@
             <p class="product-item_name"><a href=""><?=$item["sp_name"]?></a></p>
             <div class="product-item_price-wraper">
                 <div class="product-price-main">
-                <?=number_format($item['sp_price'],0,",",".")?>đ
+                    <?=number_format($item['sp_price'],0,",",".")?>đ
                 </div>
                 <div class="product-price_sale">
-                <?=number_format($item['sp_sale'],0,",",".")?>đ
+                    <?=number_format($item['sp_sale'],0,",",".")?>đ
                 </div>
             </div>
         </div>
@@ -104,4 +113,9 @@
 
 
 <script src="./../assets/js/filter-product.js">
+</script>
+<script>
+function closeNavFilter() {
+    document.getElementById("myNav").style.width = "0%";
+}
 </script>

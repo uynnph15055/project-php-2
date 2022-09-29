@@ -18,7 +18,7 @@
             <div class="input__bag">
                 <textarea name="" id="" placeholder="Thắc mặc của bạn" cols="30" rows="10"></textarea>
             </div>
-            <button class="contact__btn">Gửi tin nhắn</button>
+            <button class="pro">Gửi tin nhắn</button>
         </form>
     </div>
     <div class="content_map">

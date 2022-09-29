@@ -9,6 +9,15 @@ function getSizeAll(){
     return $result;
 }
 
+function getSizeWhereType($type){
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT  * FROM size WHERE size.kieu_display = ".$type."");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
 
 function deleteSize($id){
     $conn = connect();
@@ -27,7 +36,6 @@ function getFindCate($id){
 }
 
 function insertSize($data){
-    // dd($data);
     $conn = connect();
     $stmt = $conn->prepare("INSERT INTO size (kt_name , kieu_display , ma_color) VALUES ('".$data['kt_name']."' ,".$data['kieu_display']." , '".$data["ma_color"]."' )");
     $stmt->execute();
