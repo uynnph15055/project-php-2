@@ -73,13 +73,13 @@
                     height: 30px;
                     border-radius: 50px;
                 }
-            </style>
+        </style>
             <div class="panel">
                 <ul class="filter-list-color">
                 <?php  
                     foreach ($color as $key) {
                      ?>
-                    <a class="color" style="background-color: <?=$key["ma_color"]?>" href=""></a>
+                    <a class="color" href="index.php?url=san-pham&color=<?= $key["kt_id"] ?>" style="background-color: <?=$key["ma_color"]?>" href=""></a>
                     <?php  } ?>
                 </ul>
             </div>
@@ -89,14 +89,14 @@
         <?php foreach ($products as $item) { ?>
         <div class="product-item">
             <div class="product-item_img-box">
-                <img class="w-100" src="./../upload/<?=$item["sp_image"]?>" alt="">
+                <a href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>"> <img class="w-100" src="./../upload/<?=$item["sp_image"]?>" alt=""></a>
                 <div class="product-item_percent">
                     <?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
-                <div class="product-item_icon">
+                <a  href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>" class="product-item_icon">
                     <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
+                </a>
             </div>
-            <p class="product-item_name"><a href=""><?=$item["sp_name"]?></a></p>
+            <a  style="color: black" href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>">   <p class="product-item_name"><?=$item["sp_name"]?></p></a>
             <div class="product-item_price-wraper">
                 <div class="product-price-main">
                     <?=number_format($item['sp_price'],0,",",".")?>đ

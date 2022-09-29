@@ -1,78 +1,101 @@
 <link rel="stylesheet" href="./../assets/Css/product-detail.css">
 <div class="content">
+    <style>
+    .sizeActive {
+        background-color: #000;
+        color: #ffff;
+    }
+
+    .colorActive{
+        border: 4px solid #319DA0;
+    }
+    </style>
     <div class="content-product-info_box padding-container">
         <div class="content-product-info_left">
             <div class="container-product-image_box">
-                <img id="expandedImg"
-                    src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdwyMFRcoKj1kEEiDpD_S-Vh6rsVxsL3rCxg&usqp=CAU"
-                    style="width:100%">
+                <img id="expandedImg" src="./../upload/<?=$product[0]["sp_image"]?>" style="width:100%">
                 <div class="content-product_info-row">
                     <div class="column">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRdwyMFRcoKj1kEEiDpD_S-Vh6rsVxsL3rCxg&usqp=CAU"
-                            alt="Nature" style="width:100%" onclick="myFunction(this);">
+                        <img src="./../upload/<?=$product[0]["sp_image"]?>" alt="Nature" style="width:100%"
+                            onclick="myFunction(this);">
                     </div>
                     <div class="column">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwGPF8X5lgcLBtUZUXV9kPPpfw7IuIsTq3uQ&usqp=CAU"
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTu4kVhpjc0rP9G11pdbuOTs9ptwZNgoO_tlQ&usqp=CAU"
                             alt="Snow" style="width:100%" onclick="myFunction(this);">
                     </div>
                     <div class="column">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTx4Ej3sddJTqtqN48tLwfcukxY-e70Aev4Dw&usqp=CAU"
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS3PN_vFvRTsMK53gDly0EIIAt_Mzkq3DsnIA&usqp=CAU"
                             alt="Mountains" style="width:100%" onclick="myFunction(this);">
                     </div>
                     <div class="column">
-                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4qPmyou8HM0n-ia6ZoZYnSPZDyiyfE1Rxlw&usqp=CAU"
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVdps4X4WZmcF7f1QTd_8LdoH8m3XXB46sbA&usqp=CAU"
                             alt="Lights" style="width:100%" onclick="myFunction(this);">
                     </div>
                 </div>
             </div>
         </div>
         <div class="content-product-info_right">
-            <form action="">
+            <form action="index.php?url=add-gio-hang" method="POST">
+                <input type="text" name="id" hidden value="<?=$product[0]["sp_id"]?>">
                 <div class="header-product-info_right">
-                    <h3 class="product-name">Ghế sofa giường kéo Roots</h3>
-                    <div class="product-sale">25%</div>
+                    <h3 class="product-name"><?=$product[0]["sp_name"]?></h3>
+                    <div class="product-sale">
+                        <?=ceil(($product[0]["sp_price"] - $product[0]["sp_sale"]) * 100/$product[0]["sp_price"])?>%
+                    </div>
                 </div>
                 <div class="product-item_price-wraper">
                     <div class="product-price-main">
-                        890,000₫
+                        <?=number_format($product[0]['sp_price'],0,",",".")?>đ
                     </div>
                     <div class="product-price_sale color-text">
-                        1,250,000₫
+                        <?=number_format($product[0]['sp_sale'],0,",",".")?>đ
                     </div>
                 </div>
                 <div class="product-atribute_box">
                     <p>Kích cỡ : </p>
                     <ul class="product-atribute_list-size">
-                        <label for="size">To</label>
-                        <input id="size" value="R" hidden name="To" type="radio">
-                        <label for="size2">Nhỏ</label>
-                        <input id="size2" value="2" hidden name="Nhỏ" type="radio">
+                        <?php  
+                    foreach ($size as $key) {
+                     ?>
+                        <label onClick="chooseSize()" for="<?=$key["kt_id"]?>"
+                            class="size_label"><?=$key["kt_name"]?></label>
+                        <input id="<?=$key["kt_id"]?>" value="<?=$key["kt_name"]?>" hidden name="size" type="radio">
+                        <?php  }  ?>
                     </ul>
                 </div>
                 <div class="product-atribute_box">
                     <p>Màu sắc : </p>
                     <ul class="product-atribute_list-color">
-                        <label for="color" class="bg-black"></label>
-                        <input id="color" hidden name="color" type="radio">
-                        <label for="color1" class="bg-orange"></label>
-                        <input id="color1" hidden name="color" type="radio">
-                        <label for="color2" class="bg-red"></label>
-                        <input id="color2" hidden name="color" type="radio">
+                        <?php  
+                    foreach ($color as $key) {
+                     ?>
+                        <label onClick="chooseColor()" for="color" class="color_label" style="background-color: <?=$key["ma_color"]?>"></label>
+                        <input id="color" hidden name="color" value="<?=$key["kt_name"]?>" type="radio">
+                        <?php  }  ?>
+
+
                     </ul>
                 </div>
                 <div class="product-atribute">
 
                 </div>
-                <p class="alert-product-number">Còn 10 sản phẩm</p>
+                <p class="alert-product-number">Còn <?=$product[0]['sp_quantity']?> sản phẩm</p>
+                <p style="color : #8E0007;font-weight:bold"><?=$error?></p>
+                <style>
+                .btn-control {
+                    padding: 10px 15px;
+                    cursor: pointer;
+                }
+                </style>
                 <div class="">
                     <div class="number-input">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
-                            class="minus"><i class="fa-solid fa-minus"></i></button>
+                        <a class="btn-control" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"
+                            class="minus"><i class="fa-solid fa-minus"></i></a>
                         <input class="quantity" min="0" name="quantity" value="1" type="number">
-                        <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()" class="plus"><i
-                                class="fa-solid fa-plus"></i></button>
+                        <a class="btn-control" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                            class="plus"><i class="fa-solid fa-plus"></i></a>
                     </div>
-                    <button class="btn-add-to-cart">Thêm giỏ hàng</button>
+                    <button type="submit" class="btn-add-to-cart">Thêm giỏ hàng</button>
                 </div>
             </form>
             <div class="tabs1">
@@ -84,52 +107,7 @@
                     CHÍNH SÁCH ĐỔI TRẢ</div>
             </div>
             <div id="London" class="tabcontent">
-                1. Điều kiện đổi trả
-
-                Quý Khách hàng cần kiểm tra tình trạng hàng hóa và có thể đổi hàng/ trả lại hàng ngay tại thời
-                điểm giao/nhận hàng trong những trường hợp sau:
-
-                Hàng không đúng chủng loại, mẫu mã trong đơn hàng đã đặt hoặc như trên website tại thời điểm đặt
-                hàng.
-                Không đủ số lượng, không đủ bộ như trong đơn hàng.
-                Tình trạng bên ngoài bị ảnh hưởng như rách bao bì, bong tróc, bể vỡ…
-                Khách hàng có trách nhiệm trình giấy tờ liên quan chứng minh sự thiếu sót trên để hoàn thành
-                việc hoàn trả/đổi trả hàng hóa.
-
-
-
-                2. Quy định về thời gian thông báo và gửi sản phẩm đổi trả
-
-                Thời gian thông báo đổi trả: trong vòng 48h kể từ khi nhận sản phẩm đối với trường hợp sản phẩm
-                thiếu phụ kiện, quà tặng hoặc bể vỡ.
-                Thời gian gửi chuyển trả sản phẩm: trong vòng 14 ngày kể từ khi nhận sản phẩm.
-                Địa điểm đổi trả sản phẩm: Khách hàng có thể mang hàng trực tiếp đến văn phòng/ cửa hàng của
-                chúng tôi hoặc chuyển qua đường bưu điện.
-                Trong trường hợp Quý Khách hàng có ý kiến đóng góp/khiếu nại liên quan đến chất lượng sản phẩm,
-                Quý Khách hàng vui lòng liên hệ đường dây chăm sóc khách hàng của chúng tôi.
-                1. Điều kiện đổi trả
-
-                Quý Khách hàng cần kiểm tra tình trạng hàng hóa và có thể đổi hàng/ trả lại hàng ngay tại thời
-                điểm giao/nhận hàng trong những trường hợp sau:
-
-                Hàng không đúng chủng loại, mẫu mã trong đơn hàng đã đặt hoặc như trên website tại thời điểm đặt
-                hàng.
-                Không đủ số lượng, không đủ bộ như trong đơn hàng.
-                Tình trạng bên ngoài bị ảnh hưởng như rách bao bì, bong tróc, bể vỡ…
-                Khách hàng có trách nhiệm trình giấy tờ liên quan chứng minh sự thiếu sót trên để hoàn thành
-                việc hoàn trả/đổi trả hàng hóa.
-
-
-
-                2. Quy định về thời gian thông báo và gửi sản phẩm đổi trả
-
-                Thời gian thông báo đổi trả: trong vòng 48h kể từ khi nhận sản phẩm đối với trường hợp sản phẩm
-                thiếu phụ kiện, quà tặng hoặc bể vỡ.
-                Thời gian gửi chuyển trả sản phẩm: trong vòng 14 ngày kể từ khi nhận sản phẩm.
-                Địa điểm đổi trả sản phẩm: Khách hàng có thể mang hàng trực tiếp đến văn phòng/ cửa hàng của
-                chúng tôi hoặc chuyển qua đường bưu điện.
-                Trong trường hợp Quý Khách hàng có ý kiến đóng góp/khiếu nại liên quan đến chất lượng sản phẩm,
-                Quý Khách hàng vui lòng liên hệ đường dây chăm sóc khách hàng của chúng tôi.
+                <?=$product[0]['sp_description'] ?>
             </div>
 
             <div id="Paris" class="tabcontent">
@@ -148,109 +126,54 @@
     </h3>
     <p class="text-center color-text">Luôn sẵn sáng hỗ trợ và tư vấn cho bạn để có sản phẩm tốt nhất.</p>
     <div class="product-related_box padding-container product-list_box">
+        <?php foreach ($productRelate as $item) { ?>
         <div class="product-item">
             <div class="product-item_img-box">
-                <img class="w-100"
-                    src="https://product.hstatic.net/1000409762/product/sp12-1_5316e032a8b0403b8fe26c4cd6bef167_large.jpg"
-                    alt="">
-                <div class="product-item_percent">25%</div>
-                <div class="product-item_icon">
+                <a href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>"> <img class="w-100"
+                        src="./../upload/<?=$item["sp_image"]?>" alt=""></a>
+                <div class="product-item_percent">
+                    <?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
+                <a href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>" class="product-item_icon">
                     <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
+                </a>
             </div>
-            <p class="product-item_name"><a href="">Ấm trà inox không ghỉ</a></p>
+            <a style="color: black" href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>">
+                <p class="product-item_name"><?=$item["sp_name"]?></p>
+            </a>
             <div class="product-item_price-wraper">
                 <div class="product-price-main">
-                    890,000₫
+                    <?=number_format($item['sp_price'],0,",",".")?>đ
                 </div>
                 <div class="product-price_sale">
-                    1,250,000₫
+                    <?=number_format($item['sp_sale'],0,",",".")?>đ
                 </div>
             </div>
         </div>
-        <div class="product-item">
-            <div class="product-item_img-box">
-                <img class="w-100"
-                    src="https://product.hstatic.net/1000409762/product/sp12-1_5316e032a8b0403b8fe26c4cd6bef167_large.jpg"
-                    alt="">
-                <div class="product-item_percent">25%</div>
-                <div class="product-item_icon">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
-            </div>
-            <p class="product-item_name"><a href="">Ấm trà inox không ghỉ</a></p>
-            <div class="product-item_price-wraper">
-                <div class="product-price-main">
-                    890,000₫
-                </div>
-                <div class="product-price_sale">
-                    1,250,000₫
-                </div>
-            </div>
-        </div>
-        <div class="product-item">
-            <div class="product-item_img-box">
-                <img class="w-100"
-                    src="https://product.hstatic.net/1000409762/product/sp12-1_5316e032a8b0403b8fe26c4cd6bef167_large.jpg"
-                    alt="">
-                <div class="product-item_percent">25%</div>
-                <div class="product-item_icon">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
-            </div>
-            <p class="product-item_name"><a href="">Ấm trà inox không ghỉ</a></p>
-            <div class="product-item_price-wraper">
-                <div class="product-price-main">
-                    890,000₫
-                </div>
-                <div class="product-price_sale">
-                    1,250,000₫
-                </div>
-            </div>
-        </div>
-        <div class="product-item">
-            <div class="product-item_img-box">
-                <img class="w-100"
-                    src="https://product.hstatic.net/1000409762/product/sp12-1_5316e032a8b0403b8fe26c4cd6bef167_large.jpg"
-                    alt="">
-                <div class="product-item_percent">25%</div>
-                <div class="product-item_icon">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
-            </div>
-            <p class="product-item_name"><a href="">Ấm trà inox không ghỉ</a></p>
-            <div class="product-item_price-wraper">
-                <div class="product-price-main">
-                    890,000₫
-                </div>
-                <div class="product-price_sale">
-                    1,250,000₫
-                </div>
-            </div>
-        </div>
-        <div class="product-item">
-            <div class="product-item_img-box">
-                <img class="w-100"
-                    src="https://product.hstatic.net/1000409762/product/sp12-1_5316e032a8b0403b8fe26c4cd6bef167_large.jpg"
-                    alt="">
-                <div class="product-item_percent">25%</div>
-                <div class="product-item_icon">
-                    <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
-            </div>
-            <p class="product-item_name"><a href="">Ấm trà inox không ghỉ</a></p>
-            <div class="product-item_price-wraper">
-                <div class="product-price-main">
-                    890,000₫
-                </div>
-                <div class="product-price_sale">
-                    1,250,000₫
-                </div>
-            </div>
-        </div>
+        <?php  } ?>
     </div>
 </div>
 
+<script>
+function chooseSize() {
+    const size = document.querySelectorAll('.size_label');
+    size.forEach(element => {
+        element.classList.remove("sizeActive");
+        element.addEventListener('click' ,() => {
+            element.classList.add("sizeActive");
+        })
+    });
+}
+
+function chooseColor() {
+    const colors = document.querySelectorAll('.color_label');
+    colors.forEach(element => {
+        element.classList.remove("colorActive");
+        element.addEventListener('click' ,() => {
+            element.classList.add("colorActive");
+        })
+    });
+}
+</script>
 <script src="./../assets/js/tab-slider.js"></script>
 <script src="./../assets/js/tab-component.js"></script>
 <script src="./../assets/js/list-cart.js"></script>

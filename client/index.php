@@ -74,17 +74,113 @@ if(isset($_GET['url'])){
                 $products =  getProductWhereCate($_GET['cate']);
             }else if(isset($_GET['size'])){
                 $products =  getProductWhereSize($_GET['size']);
+            }else if(isset($_GET['color'])){
+                $products =  getProductWhereSize($_GET['color']);
             }else{
                 $products =  getProductAll();
             }
             include('./views/product.php');
             break;
+         
+            // Sản phẩm chi tiết
+         case 'san-pham-chi-tiet':
+            $error = '';
+            if(isset($_GET['id'])){
+                $product = getProductFind($_GET['id']);
+                $productRelate= getProductWhereCate($product[0]["dm_id"]);
+            }
+            include('./views/product-detail.php');
+            break;
 
-  
+        case 'xoa-gio-hang':
+            if($_GET["id"]){
+                // dd($_GET["id"]);
+                unset($_SESSION["cart"][$_GET["id"]]);
+            }
+            // Quay về trang trước
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
+            break;
+
+          // Sản phẩm chi tiết
+        case 'add-gio-hang':
+            $product = getProductFind($_POST['id']);
+            $error = '';
+            if(!empty( $_POST["size"]) && !empty( $_POST["color"]) ){
+                if (isset($_SESSION["cart"])) {
+                    $cart = $_SESSION["cart"] ;
+                    if (array_key_exists($_POST["id"], $cart)) {
+                        if (in_array($cart[$_POST["id"]]['size'], $cart[$_POST["id"]], true)) {
+                            $cart[$_POST["id"]] = [
+                                'id' => $_POST["id"],
+                                'name' => $product[0]["sp_name"],
+                                'img' => $product[0]["sp_image"],
+                                'size' => $cart[$_POST["id"]]['size'] . ',' . $_POST["size"] . '-' . 'Màu ' .  $_POST["color"],
+                                'price' => $product[0]["sp_sale"],
+                                'number' => $cart[$_POST["id"]]['number'] + $_POST["quantity"],
+                            ];
+                        } else {
+                            $cart[$_POST["id"]] = [
+                                'id' => $_POST["id"],
+                                'name' => $product[0]["sp_name"],
+                                'img' => $product[0]["sp_image"],
+                                'size' => $_POST["size"] . '-' .  'Màu ' .  $_POST["color"],
+                                'price' => $product[0]["sp_sale"],
+                                'number' => $cart[$_POST["id"]]['number'] + $_POST["quantity"],
+                            ];
+                        }
+                    } else {
+                        $cart[$_POST["id"]] = [
+                            'id' => $_POST["id"],
+                            'name' => $product[0]["sp_name"],
+                            'img' => $product[0]["sp_image"],
+                            'size' => $_POST["size"] . '-' .  'Màu ' .  $_POST["color"],
+                            'price' => $product[0]["sp_sale"],
+                            'number' =>  $_POST["quantity"],
+                        ];
+                    }
+                } else {
+                    $cart = [];
+                    $cart[$_POST["id"]] = [
+                        'id' => $_POST["id"],
+                        'name' => $product[0]["sp_name"],
+                        'img' => $product[0]["sp_image"],
+                        'size' => $_POST["size"] . '-' .  'Màu ' .  $_POST["color"],
+                        'price' => $product[0]["sp_sale"],
+                        'number' =>$_POST["quantity"],
+                    ];
+                }
+                header("location:".BASE_CLIENT."?url=gio-hang");
+            }else{
+                $error = 'Bạn chưa chọn thuộc tính !!!';
+                include('./views/product-detail.php');
+            }
+            
+            $_SESSION['cart'] = $cart;
+            break;
+
+        // Trang giỏ hàng
+        case 'gio-hang':
+            if(!isset($_SESSION["user"])){
+                header("location:".BASE_CLIENT."?dang-nhap");
+            }
+            $cart =  $_SESSION['cart'];
+            include('./views/cart.php');
+            break;
+
         // Trang liên hệ
          case 'lien-he':
             include('./views/contact.php');
             break;
+
+        // Trang thanh toán
+         case 'thanh-toan':
+            if(!isset($_SESSION["user"])){
+                header("location:".BASE_CLIENT."?dang-nhap");
+            }
+            $cart =  $_SESSION['cart'];
+            include('./views/pay.php');
+            break;  
+
         // Trang chi tiết sản phẩm
          case 'san_pham/chi-tiet':
             include('./views/product-detail.php');

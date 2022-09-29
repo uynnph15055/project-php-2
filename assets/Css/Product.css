@@ -74,6 +74,7 @@
     font-size: 1.2rem;
     transform: scale(0);
     transition: all ease 0.3s;
+    color: black;
 }
 
 .product-item_img-box:hover .product-item_icon {
