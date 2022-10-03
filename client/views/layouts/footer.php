@@ -1,3 +1,13 @@
+<?php  if(isset($_SESSION['success'])){ ?>
+<script>
+         alert('Thanh toán thành công !!!');
+         setTimeout(() => {
+            <?php unset($_SESSION['success']); ?>
+         }, 2000);
+</script>
+<?php 
+
+ } ?>
 <style>
     footer{
         border-top: 1px solid #ccc;
@@ -67,6 +77,8 @@
 <script src="./../assets/js/back-top.js"></script>
 <script src="./../assets/js/list-cart.js"></script>
 <script>
+
+    
 
 function openCart() {
 

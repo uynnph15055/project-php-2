@@ -16,12 +16,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500;&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.1.js"></script>
-
+   
 </head>
 <style>
-    .navbar{
-        background-color: rgb(54, 54, 54);
-    }
+.navbar {
+    background-color: rgb(54, 54, 54);
+}
 </style>
 
 <body>
@@ -33,9 +33,10 @@
                         <a class="navbar-brand text-white fs-3" href="#">Admin</a>
                         <div class="collapse navbar-collapse ml-5" id="navbarNav">
                             <ul class="navbar-nav">
-                                <?php foreach($MenuAdmin as $item => $value){ ?> 
+                                <?php foreach($MenuAdmin as $item => $value){ ?>
                                 <li class="nav-item">
-                                    <a class="nav-link" name="<?=$value["route"]?>"  href="index.php?url=<?=$value[ "route"] ?>"><?=$value[ "name"] ?></a>
+                                    <a class="nav-link" name="<?=$value["route"]?>"
+                                        href="index.php?url=<?=$value[ "route"] ?>"><?=$value[ "name"] ?></a>
                                 </li>
                                 <?php } ?>
                             </ul>

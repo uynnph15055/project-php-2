@@ -3,7 +3,7 @@
 $MenuAdmin =  [
     [
         "name" => 'Trang chính',
-        "route" => 'admin',
+        "route" => 'trang-chinh',
     ],
     [
         "name" => 'Danh mục',
@@ -19,12 +19,13 @@ $MenuAdmin =  [
     ],
     [
         "name" => 'Tài khoản',
-        "route" => 'user',
+        "route" => 'account',
     ],
     [
         "name" => 'Hoá đơn',
-        "route" => 'recip',
-    ]
+        "route" => 'order',
+    ],
+  
 ]
 
 ?>

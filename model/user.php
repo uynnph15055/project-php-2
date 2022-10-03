@@ -20,9 +20,30 @@ function getAllUser(){
 
 // Gọi user theo email
 function getUserFind($email){
-    // dd($email);
     $conn = connect();
     $stmt = $conn->prepare("SELECT * FROM user WHERE kh_email = '".$email."'");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+
+//Update quyền user
+function updateUser($data){
+    $conn = connect();
+    $stmt = $conn->prepare("UPDATE  `user`  
+    SET `role` =  ". $data["role"]." WHERE `kh_id` = ". $data["id"]."");
+    $stmt->execute();
+}
+
+
+
+// Gọi user theo id
+function getUserId($id){
+    // dd($email);
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT * FROM user WHERE kh_id = $id");
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();

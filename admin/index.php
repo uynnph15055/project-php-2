@@ -5,6 +5,8 @@ include('./../model/connect.php');
 include('./../model/category.php');
 include('./../model/product.php');
 include('./../model/size.php');
+include('./../model/order.php');
+include('./../model/user.php');
 include('./../helper/dd.php');
 include('./../helper/baseUrl.php');
 include('./../helper/route-menu-admin.php');
@@ -16,6 +18,11 @@ include('./views/layouts/header.php');
 
 if(isset($_GET['url'])){
     switch ($_GET['url']) {
+         // Trang chính
+        case 'trang-chinh':
+            $chart = cateChart();
+            include('./views/main.php');
+            break;
         // Trang danh sách danh mục
         case 'category':
             
@@ -186,8 +193,47 @@ if(isset($_GET['url'])){
         case 'trang-chinh':
             include('./views/main.php');
             break;
+
+        case 'account':
+            $user = getAllUser();
+    
+            include('./views/account/index.php');
+            break;
+
+        case 'account-edit':
+            $user = getUserId((int)$_GET['id']);
+    
+            include('./views/account/edit.php');
+            break;
+
+
+        case 'account-edit-save':
+            updateUser($_POST);
+            header("location:".BASE_ADMIN."account");
+            break;
+
+        case 'order':
+            $order = orderAll();
+            include('./views/order/index.php');
+            break;
+
+        case 'order-delete-save':
+            if(isset($_GET['id'])){
+                orderDelete($_GET['id']);
+            }
+            header("location:".BASE_ADMIN."order");
+            break; 
+
+        // Chi tiết hóa đơn
+        case 'order-detail':
+            if(isset($_GET['id'])){
+               $order =  getOrderByID($_GET['id']);
+               $orderDetail = getOrderDetailByID($_GET['id']);
+               include('./views/order/detail.php');
+            }
+            break; 
         default:
-            # code...
+            # code..
             break;
     }
 }

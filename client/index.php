@@ -3,6 +3,7 @@ session_start();
 ob_start();
 include('./../model/connect.php');
 include('./../model/product.php');
+include('./../model/order.php');
 include('./../model/category.php');
 include('./../model/size.php');
 include('./../model/user.php');
@@ -176,10 +177,33 @@ if(isset($_GET['url'])){
          case 'thanh-toan':
             if(!isset($_SESSION["user"])){
                 header("location:".BASE_CLIENT."?dang-nhap");
+            }elseif (!isset($_SESSION["cart"])) {
+                header("location:".BASE_CLIENT."?url=san-pham");
+            }else{
+                $user = $_SESSION["user"];
+                $cart =  $_SESSION['cart'];
+                // dd($user);
+                include('./views/pay.php');
+                break;  
             }
-            $cart =  $_SESSION['cart'];
-            include('./views/pay.php');
-            break;  
+
+         // Trang lưu thanh toán
+         case 'luu-thanh-toan':
+           if($_POST){
+             try {
+                $idNew = insertOrder($_POST);
+                $cart =  $_SESSION['cart'];
+                foreach( $cart as $key => $value){
+                    insertOrderDetail($value ,  $idNew);
+                }
+                unset($_SESSION["cart"]);
+                $_SESSION['success'] = 'Thanh toán thành công !!!';
+             } catch (\Throwable $th) {
+                header('Location: ' . $_SERVER['HTTP_REFERER']);
+             };
+            header("location:".BASE_CLIENT."");
+           }
+           break;
 
         // Trang chi tiết sản phẩm
          case 'san_pham/chi-tiet':

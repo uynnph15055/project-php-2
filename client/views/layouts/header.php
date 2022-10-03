@@ -102,7 +102,7 @@
 
                     <?php } ?>
                     <h3  style="margin-top: 30px">Tổng tiền <span style="color: #8E0007"><?=number_format($count,0,",",".")?>đ</span></h3>
-                    <button class="cart-list-view"><a style="color: #000" href="">Xem giỏ hàng</a> </button>
+                    <button class="cart-list-view"><a style="color: #000" href="index.php?url=gio-hang">Xem giỏ hàng</a> </button>
                 </div>
             </div>
             <?php } ?>
