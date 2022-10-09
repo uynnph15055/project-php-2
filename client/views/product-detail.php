@@ -6,7 +6,7 @@
         color: #ffff;
     }
 
-    .colorActive{
+    .colorActive {
         border: 4px solid #319DA0;
     }
     </style>
@@ -69,7 +69,8 @@
                         <?php  
                     foreach ($color as $key) {
                      ?>
-                        <label onClick="chooseColor()" for="color" class="color_label" style="background-color: <?=$key["ma_color"]?>"></label>
+                        <label onClick="chooseColor()" for="color" class="color_label"
+                            style="background-color: <?=$key["ma_color"]?>"></label>
                         <input id="color" hidden name="color" value="<?=$key["kt_name"]?>" type="radio">
                         <?php  }  ?>
 
@@ -99,10 +100,12 @@
                 </div>
             </form>
             <div class="tabs1">
-                <div class="tab-item active tablinks" id="defaultOpen" onclick="openCity(event, 'London')">Mô tả
+                <div class="tab-item active tablinks" <?= !isset($isDanhgia)  ?  'id="defaultOpen"' : ''?>
+                    onclick="openCity(event, 'London')">Mô tả
                 </div>
-                <div class="tab-item tablinks" onclick="openCity(event, 'Paris')">
-                    ĐIỀU KHOẢN DỊCH VỤ</div>
+                <div class="tab-item tablinks" <?= isset($isDanhgia)  ?  'id="defaultOpen"' : ''?>
+                    onclick="openCity(event, 'Paris')">
+                    ĐÁNH GIÁ</div>
                 <div class="tab-item tablinks" onclick="openCity(event, 'Tokyo')">
                     CHÍNH SÁCH ĐỔI TRẢ</div>
             </div>
@@ -110,9 +113,132 @@
                 <?=$product[0]['sp_description'] ?>
             </div>
 
+            <style>
+            .form-control-cmtt {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+            }
+
+            .cmtt__item {
+                display: flex;
+                justify-content: start;
+                align-items: start;
+                margin: 20px;
+
+            }
+
+            .form-control-input-box {
+                padding-bottom: 5px;
+                border-bottom: 1px solid #ccc;
+                display: flex;
+                margin-left: 20px;
+                width: 100%;
+            }
+
+            .form-control-input {
+                outline: none;
+                border: none;
+                width: 100%;
+                font-size: 15px;
+            }
+
+            .form-cmtt {
+                margin: 0px 20px;
+            }
+
+            .avatar-cmtt {
+                width: 40px;
+                height: 40px;
+                border-radius: 50px
+            }
+
+            .cmtt__content {
+                text-align: justify;
+                background-color: #F1F1F1;
+                margin-top: 5px;
+                padding: 10px;
+                border-radius: 10px;
+            }
+
+            .all__cmtt::-webkit-scrollbar {
+                width: 3px;
+                background-color: rgb(235, 232, 232);
+            }
+
+            .all__cmtt::-webkit-scrollbar-thumb {
+                background-color: #999;
+                border-radius: 6px;
+            }
+
+            .all__cmtt {
+                height: 400px;
+                overflow-y: auto;
+            }
+
+            .cmtt__info {
+                margin-left: 15px;
+            }
+
+            .btn__submit {
+                cursor: pointer;
+                color: #999;
+                background-color: #ffff;
+                border: none;
+                font-size: 18px;
+            }
+
+            .btn__submit:hover {
+                color: #555;
+            }
+
+            .cmtt__content-box {
+                display: flex;
+                justify-content: start;
+                align-items: center;
+            }
+
+            .cmtt__delete {
+                margin-left: 10px;
+                color: #8E0007;
+            }
+            </style>
             <div id="Paris" class="tabcontent">
-                <h3>Paris</h3>
-                <p>Paris is the capital of France.</p>
+                <?php if(isset($_SESSION["user"])){ ?>
+                <form action="?url=binh-luan" method="POST" class="form-cmtt">
+                    <input type="text" value="<?=$product[0]['sp_id']?>" name="sp_id" hidden>
+                    <div class="form-control-cmtt">
+                        <img class="avatar-cmtt" src="./../upload/<?=$_SESSION["user"]["kh_avatar"]?>" alt="">
+                        <div class="form-control-input-box">
+                            <input class="form-control-input" name="content" type="text"
+                                placeholder="Đánh giá của bạn ...">
+                            <button class="btn__submit" type="submit"> <i class="fa-solid fa-paper-plane"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <?php } ?>
+                <div class="all__cmtt">
+                    <?php foreach ($comments as $key) { ?>
+                    <div class="cmtt__item">
+                        <img class="avatar-cmtt" src="./../upload/<?= $key["kh_avatar"]?>" alt="">
+                        <div class="cmtt__info">
+                            <h5 class="cmtt__user"><?= $key["kh_name"]?></h5>
+                            <div class="cmtt__content-box">
+                                <p class="cmtt__content"><?= $key["content"]?>
+                                </p>
+                                <?php if(isset($_SESSION["user"])){
+                                    if($_SESSION["user"]["kh_id"] ==  $key["kh_id"]){ ?>
+                                      <a  onclick="return confirm('Bạn có muốn xoá danh mục này ?')"  href="index.php?url=binh-luan-delete&id=<?= $key['cmtt_id']?>"   class="cmtt__delete" href=""><i class="fa-solid fa-xmark"></i></a>
+                                      <?php   } ?>
+                                <?php   } ?>
+                            </div>
+                        </div>
+                    </div>
+                    <?php  } ?>
+
+
+                </div>
+
             </div>
 
             <div id="Tokyo" class="tabcontent">
@@ -158,7 +284,7 @@ function chooseSize() {
     const size = document.querySelectorAll('.size_label');
     size.forEach(element => {
         element.classList.remove("sizeActive");
-        element.addEventListener('click' ,() => {
+        element.addEventListener('click', () => {
             element.classList.add("sizeActive");
         })
     });
@@ -168,7 +294,7 @@ function chooseColor() {
     const colors = document.querySelectorAll('.color_label');
     colors.forEach(element => {
         element.classList.remove("colorActive");
-        element.addEventListener('click' ,() => {
+        element.addEventListener('click', () => {
             element.classList.add("colorActive");
         })
     });

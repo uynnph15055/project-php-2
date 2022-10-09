@@ -18,11 +18,7 @@ include('./views/layouts/header.php');
 
 if(isset($_GET['url'])){
     switch ($_GET['url']) {
-         // Trang chính
-        case 'trang-chinh':
-            $chart = cateChart();
-            include('./views/main.php');
-            break;
+        
         // Trang danh sách danh mục
         case 'category':
             
@@ -55,10 +51,12 @@ if(isset($_GET['url'])){
             break;
         // Sửa danh mục
         case 'category-edit':
+            $error= '';
             $cates = getCateAll();
             if($_GET['id']){
                $cate = getFind($_GET['id']);
-               header("location:".BASE_ADMIN."category");
+            //    dd($cate);
+               include('./views/category/index.php');
             }else{
                 echo 'ERROR';
                 die;
@@ -68,11 +66,11 @@ if(isset($_GET['url'])){
         case 'category-edit-save':
             $cates = getCateAll();
     
-            if($_POST['cate_name'] && $_POST['id']){
-                updateCate($_POST['cate_name'] ,$_POST['id']);
+            if(!empty($_POST['dm_name']) && !empty($_POST['id'])){
+                updateCate($_POST['dm_name'] ,$_POST['id']);
             }else{
-                echo 'ERROR';
-                die;
+                echo 'Chưa nhập gì !!!';
+            die;
             }
             header("location:".BASE_ADMIN."category");
             break;
@@ -81,6 +79,23 @@ if(isset($_GET['url'])){
             $product = getProductAll();
             include('./views/product/index.php');
         break;
+
+        // Trang sản phẩm bình luận
+        case 'product-cmtt':
+          if(isset($_GET['id'])){
+            $comments = getCommentProduct($_GET['id']);
+          }
+            include('./views/product/comment.php');
+        break;
+
+          // Xóa sản phẩm
+          case 'product-cmtt-delete':
+            if(isset($_GET['id'])){
+               deleteCmtt($_GET['id']);
+              header('Location: ' . $_SERVER['HTTP_REFERER']);
+            }
+            //   include('./views/product/comment.php');
+          break;
         // Trang thêm sản phẩm
         case 'product-form-add':
             $size = getSizeAll();
@@ -89,16 +104,49 @@ if(isset($_GET['url'])){
         break;
           // Lưu thêm sản phẩm
         case 'product-form-add-save':
-            if(!empty($_POST)){
-                if(!empty($_FILES)){
-                    $fileName =  $_FILES["sp_image"]["name"];
-                    move_uploaded_file( $_FILES["sp_image"]["tmp_name"]  ,'../upload/' .   $fileName );
+            $size = getSizeAll();
+            $cate = getCateAll();
+            $errorName = '';
+            $errorImage = '';
+            $errorPrice = '';
+            $errorCate = '';
+            $errorPriceSale = ''; 
+            $errorQuantity = '';
+            $errorSize = '';
+           
+            if(!empty($_POST["sp_price"]) && !empty($_POST["sp_sale"])){
+                if((int)$_POST["sp_price"]    < (int)$_POST["sp_sale"]){
+                    $errorPriceSale = 'Giá giảm phải nhỏ hơn giá gốc !!!';
                 }
+            }
+            if(!isset($_FILES["sp_image"]["name"])){
+                $errorImage = "Bạn chưa chọn ảnh !!!";
+            }
+            if(empty($_POST["sp_price"])){
+                $errorPrice = 'Bạn chưa nhập giá !!!';
+            }
+            if(empty($_POST["dm_id"])){
+                $errorCate = 'Bạn chưa chọn danh mục !!!';
+            }
+            if( empty($_POST["kt_id"])){
+                $errorSize = "Bạn chưa chọn kích thước !!!";
+            }
+            if(empty($_POST["sp_quantity"])){
+                $errorQuantity = 'Chưa nhập số lượng !!!';
+            }
+            if(empty($_POST["sp_name"])){
+                    $errorName = "Bạn chưa nhập tên sản phẩm !!!";
+            }
+
+            if(empty($errorSize) &&  empty($errorName) && empty($errorImage) && empty($errorPrice) && empty($errorCate) && empty($errorQuantity) && empty($errorPriceSale) ){
+                $fileName =  $_FILES["sp_image"]["name"];
+                move_uploaded_file( $_FILES["sp_image"]["tmp_name"]  ,'../upload/' .   $fileName );
                 $_POST['sp_image'] =$fileName;
                 insertProduct($_POST);
+                header("location:".BASE_ADMIN."product");
+            }else{
+                include('./views/product/form.php');
             }
-          
-            header("location:".BASE_ADMIN."product");
         break;
         case 'product-delete':
             if(isset($_GET['id'])){
@@ -113,6 +161,7 @@ if(isset($_GET['url'])){
         case 'product-edit':
             $size = getSizeAll();
             $cate = getCateAll();
+            
             if(isset($_GET['id'])){
                 $product = getProductFind($_GET['id']);
                 include('./views/product/edit.php');
@@ -123,19 +172,52 @@ if(isset($_GET['url'])){
               break;
         break;
         case 'product-edit-save':
-            if(!empty($_POST)){
-                if(!empty($_FILES['sp_image']["name"])){
-                    $fileName =  $_FILES["sp_image"]["name"];
-                    move_uploaded_file( $_FILES["sp_image"]["tmp_name"]  ,'../upload/' .   $fileName );
-                    $_POST['sp_image'] =$fileName;
+            $size = getSizeAll();
+            $cate = getCateAll();
+            $errorName = '';
+            $errorImage = '';
+            $errorPrice = '';
+            $errorCate = '';
+            $errorPriceSale = ''; 
+            $errorQuantity = '';
+            $errorSize = '';
+            $product = getProductFind($_POST['sp_id']);
+            if(!empty($_POST["sp_price"]) && !empty($_POST["sp_sale"])){
+                if((int)$_POST["sp_price"]    < (int)$_POST["sp_sale"]){
+                    $errorPriceSale = 'Giá giảm phải lớn hơn giá gốc !!!';
                 }
-                $_POST['sp_image'] = $_POST['sp_image'];
+            }
+            if(!isset($_FILES["sp_image"]["name"])){
+                $errorImage = "Bạn chưa chọn ảnh !!!";
+            }
+            if(empty($_POST["sp_price"])){
+                $errorPrice = 'Bạn chưa nhập giá !!!';
+            }
+            if(empty($_POST["dm_id"])){
+                $errorCate = 'Bạn chưa chọn danh mục !!!';
+            }
+            if( empty($_POST["kt_id"])){
+                $errorSize = "Bạn chưa chọn kích thước !!!";
+            }
+            if(empty($_POST["sp_quantity"])){
+                $errorQuantity = 'Chưa nhập số lượng !!!';
+            }
+            if(empty($_POST["sp_name"])){
+                    $errorName = "Bạn chưa nhập tên sản phẩm !!!";
+            }
+
+            if(empty($errorSize) &&  empty($errorName) && empty($errorImage) && empty($errorPrice) && empty($errorCate) && empty($errorQuantity) && empty($errorPriceSale)){
+                $fileName =  $_FILES["sp_image"]["name"];
+            
+                move_uploaded_file( $_FILES["sp_image"]["tmp_name"]  ,'../upload/' .   $fileName );
+                $_POST['sp_image'] =$fileName;
+                // dd($_POST);
                 updateProduct($_POST , $_POST['sp_id']);
+                header("location:".BASE_ADMIN."product");
               }else{
-                echo 'Error';
-                die;
+                include('./views/product/edit.php');
               }
-              header("location:".BASE_ADMIN."product");
+           
               break;
         break;
         // Quản lý thuộc tính
@@ -236,6 +318,10 @@ if(isset($_GET['url'])){
             # code..
             break;
     }
+}else{
+    // Trang chính
+    $chart = cateChart();
+    include('./views/main.php');
 }
 
 include('./views/layouts/footer.php');

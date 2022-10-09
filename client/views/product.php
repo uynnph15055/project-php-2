@@ -85,6 +85,11 @@
             </div>
         </div>
     </div>
+
+    <?php  if(isset( $key_word)){ ?>
+        <h3 style="margin-top: 20px">Kết quả tìm kiếm : <span style="font-weight: normal"><?=$key_word?></span></h3>
+    <?php  } ?>
+
     <div class="product-list_box ">
         <?php foreach ($products as $item) { ?>
         <div class="product-item">

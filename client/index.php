@@ -71,24 +71,59 @@ if(isset($_GET['url'])){
             break;
         // Trang sản phẩm
         case 'san-pham':
+           
             if(isset($_GET['cate'])){
                 $products =  getProductWhereCate($_GET['cate']);
             }else if(isset($_GET['size'])){
                 $products =  getProductWhereSize($_GET['size']);
             }else if(isset($_GET['color'])){
                 $products =  getProductWhereSize($_GET['color']);
+            }else if(isset($_GET['key_word'])){
+                $key_word = $_GET['key_word'];
+                $products =  searchProduct(($_GET['key_word']));
             }else{
                 $products =  getProductAll();
             }
             include('./views/product.php');
             break;
-         
+
+        case 'tim-kiem-san-pham':
+            if($_POST['key_word']){
+                header("location:".BASE_CLIENT."?url=san-pham&key_word=" .$_POST['key_word']);
+            }
+            break;
+
+
+        case 'binh-luan':
+                if(isset($_SESSION["user"])){
+                   $_POST["kh_id"] = $_SESSION["user"]["kh_id"];
+                   commentProduct($_POST);
+                   header("location:".BASE_CLIENT."?url=san-pham-chi-tiet&id=". $_POST["sp_id"]."&dg=danh-gia");
+                }else{
+                    header("location:".BASE_CLIENT."?dang-nhap");
+                }
+                break;
+
+
+         case 'binh-luan-delete':
+                if(isset($_GET["id"])){
+                    deleteCmtt($_GET["id"]);
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                }
+                   
+                break;
+
             // Sản phẩm chi tiết
          case 'san-pham-chi-tiet':
             $error = '';
+            $isDanhgia;
+            if(isset($_GET['dg'])){
+                $isDanhgia= $_GET['dg'];
+            }
             if(isset($_GET['id'])){
                 $product = getProductFind($_GET['id']);
                 $productRelate= getProductWhereCate($product[0]["dm_id"]);
+                $comments = getCommentProduct($_GET['id']);
             }
             include('./views/product-detail.php');
             break;

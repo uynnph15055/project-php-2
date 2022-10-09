@@ -31,8 +31,8 @@
                 <div class="header-main_log">
                     <span>AVA SPORT <i class="fa-solid fa-shoe-prints"></i></span>
                 </div>
-                <form action="" class="header-search_form-box">
-                    <input class="header-search_form-input" type="text" placeholder="Tìm kiếm sản phẩm">
+                <form action="?url=tim-kiem-san-pham" method="POST" class="header-search_form-box">
+                    <input class="header-search_form-input" name="key_word" type="text" placeholder="Tìm kiếm sản phẩm">
                     <button class="header-search_btn-primary"><i class="fa-solid fa-magnifying-glass"></i></button>
                 </form>
                 <div class="header-phone header-main_sub">
