@@ -48,6 +48,7 @@
     padding: 10px;
     border: none;
     float: right;
+    overflow-y: auto;
     border-radius: 6px;
     cursor: pointer;
 }

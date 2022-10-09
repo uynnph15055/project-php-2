@@ -3,7 +3,7 @@
 // Gọi tất cả sản phẩm ra ngoài
 function getProductAll(){
     $conn = connect();
-    $stmt = $conn->prepare("SELECT *  FROM product INNER JOIN category  ON product.dm_id = category.dm_id");
+    $stmt = $conn->prepare("SELECT *  FROM product INNER JOIN category  ON product.dm_id = category.dm_id ORDER BY product.sp_id DESC");
     $stmt->execute();
     $stmt->setFetchMode(PDO::FETCH_ASSOC);
     $result = $stmt->fetchAll();
@@ -64,3 +64,38 @@ function updateProduct($data , $id){
     SET sp_name = '".$data["sp_name"]."', sp_image= '".$data["sp_image"]."', sp_price=' ".$data["sp_price"]."' , sp_sale ='".$data["sp_sale"]." ', sp_quantity= ".(int)$data["sp_quantity"].", dm_id= ".(int)$data["dm_id"].", sp_description='".$data["sp_description"]."', kt_id=".(int)$data["kt_id"]."  WHERE product.sp_id = ".(int)$id."");
     $stmt->execute();
 }
+
+// Tìm kiếm sản phẩm
+function searchProduct($key_world){
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT  * FROM product WHERE product.sp_name LIKE '%$key_world%'");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+
+// Bình luận sản phẩm
+function commentProduct($data){
+    $conn = connect();
+    $stmt = $conn->prepare("INSERT INTO `comment`(`sp_id`, `kh_id`, `content`) VALUES (".(int)$data["sp_id"].",".(int)$data["kh_id"].",'".$data["content"]."')");
+    $stmt->execute();
+}
+
+function getCommentProduct($id){
+    $conn = connect();
+    $stmt = $conn->prepare("SELECT  * FROM `comment` INNER JOIN `user` ON comment.kh_id =  user.kh_id WHERE comment.sp_id = $id  ORDER BY comment.cmtt_id DESC");
+    $stmt->execute();
+    $stmt->setFetchMode(PDO::FETCH_ASSOC);
+    $result = $stmt->fetchAll();
+    return $result;
+}
+
+
+function deleteCmtt($id){
+    $conn = connect();
+    $sql = "DELETE FROM comment WHERE comment.cmtt_id = ".(int)$id;
+    $conn->exec($sql);
+}
+

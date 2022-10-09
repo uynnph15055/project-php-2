@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="./../assets/Css/Home.css">
 <div class="banner">
     <img class="w-100" style="height: 500px;object-fit: cover" src="https://ordixi.com/wp-content/uploads/2019/04/giay-chay-bo-49b814ac.jpg" alt="">
-    <div class="banner-sub_box  padding-container">
+    <div class="banner-sub_box   padding-container" style="z-index: 1">
         <div class="banner-sub_img-box">
             <img class="w-100 h-100 "
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE74axMiu3xXZorvQ_CPPf5G9p_ZjeIV21Ww&usqp=CAU"
@@ -11,7 +11,7 @@
             <img class="w-100 h-100" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQnuLeiCl8lfKzNzUhGkMDDhrt_jiNZlmNDbA&usqp=CAU" alt="">
         </div>
         <div class="banner-sub_img-box">
-            <img class="w-100 h-100 "
+            <img  class="w-100 h-100 "
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr5nnkGFlmIUWyoNXMRc_BZo6J6X7_75fnxA&usqp=CAU"
                 alt="">
         </div>
@@ -23,23 +23,23 @@
     </h3>
     <p class="text-center color-text">Cập nhật những sản phẩm mới nhật</p>
     <div class="product-list_box padding-container">
-        <?php foreach ($products as $item) { ?>
+    <?php foreach ($products as $item) { ?>
         <div class="product-item">
             <div class="product-item_img-box">
-                <img class="w-100"
-                    src="./../upload/<?=$item["sp_image"]?>" alt="">
-                <div class="product-item_percent"><?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
-                <div class="product-item_icon">
+                <a href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>"> <img class="w-100" src="./../upload/<?=$item["sp_image"]?>" alt=""></a>
+                <div class="product-item_percent">
+                    <?=ceil(($item["sp_price"] - $item["sp_sale"]) * 100/$item["sp_price"])?>%</div>
+                <a  href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>" class="product-item_icon">
                     <i class="fa-solid fa-magnifying-glass-plus"></i>
-                </div>
+                </a>
             </div>
-            <p class="product-item_name"><a href=""><?=$item["sp_name"]?></a></p>
+            <a  style="color: black" href="index.php?url=san-pham-chi-tiet&id=<?= $item["sp_id"] ?>">   <p class="product-item_name"><?=$item["sp_name"]?></p></a>
             <div class="product-item_price-wraper">
                 <div class="product-price-main">
-                <?=number_format($item['sp_price'],0,",",".")?>đ
+                    <?=number_format($item['sp_price'],0,",",".")?>đ
                 </div>
                 <div class="product-price_sale">
-                <?=number_format($item['sp_sale'],0,",",".")?>đ
+                    <?=number_format($item['sp_sale'],0,",",".")?>đ
                 </div>
             </div>
         </div>

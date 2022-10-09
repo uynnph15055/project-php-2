@@ -13,21 +13,25 @@
                 <th scope="col">Ảnh</th>
                 <th scope="col">Giá</th>
                 <th scope="col">Giá giảm</th>
-                <th scope="col">Số lượng</th>
-                <th scope="col text-center" width="100px">Sửa</th>
-                <th scope="col text-center" width="100px">Xoá</th>
+                <th scope="col">SL</th>
+                <th scope="col text-center" width="80px">CMTT</th>
+                <th scope="col text-center" width="80px">Sửa</th>
+                <th scope="col text-center" width="80px">Xoá</th>
             </tr>
         </thead>
         <tbody>
             <?php 
                     $index = 1; foreach($product as $item){  ?>
             <tr>
-                 <td><?= $index?></td>
+                 <td><?= $index++?></td>
                  <td><?=$item['sp_name']?></td>
                  <td><img width="100px" src="../upload/<?=$item['sp_image']?>"  alt=""></td>
                  <td><?=number_format($item['sp_price'],0,",",".")?>đ</td>
                  <td><?=number_format($item['sp_sale'],0,",",".")?>đ</td>
                  <td><?=$item['sp_quantity']?></td>
+                 <td>
+                    <a  href="index.php?url=product-cmtt&id=<?=$item['sp_id']?>"  class="btn btn-dark"><i class="fa-solid fa-eye"></i></a>
+                 </td>
                  <td>
                     <a  href="index.php?url=product-edit&id=<?=$item['sp_id']?>"  class="btn btn-warning">Sửa</a>
                  </td>

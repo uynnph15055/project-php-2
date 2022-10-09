@@ -1,6 +1,7 @@
 .content{
     background-color: var(--color-container);
-    padding-top: 50px;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
 .title-page-name{
