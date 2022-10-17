@@ -62,6 +62,11 @@ if(isset($_GET['url'])){
                 die;
             }
             break;
+        case 'search-product':
+            if($_POST['key_word']){
+                header("location:".BASE_ADMIN."product&key_word=" .$_POST['key_word']);
+            }
+            break;
         // Trang lưu sửa
         case 'category-edit-save':
             $cates = getCateAll();
@@ -74,9 +79,24 @@ if(isset($_GET['url'])){
             }
             header("location:".BASE_ADMIN."category");
             break;
+        // Trang lưu sửa
+        case 'search-product-cate':
+            if($_POST['cate']){
+                header("location:".BASE_ADMIN."product&cate=" .$_POST['cate']);
+            }
+            break;
         // Trang sản phẩm
         case 'product':
-            $product = getProductAll();
+            $cate = getCateAll();
+            if(isset($_GET['key_word'])){
+                $key_word = $_GET['key_word'];
+                $product =  searchProduct(($_GET['key_word']));
+            }else if(isset($_GET['cate'])){
+                $product =  getProductWhereCate(($_GET['cate']));
+            }else{
+                $product = getProductAll();
+            }
+          
             include('./views/product/index.php');
         break;
 
